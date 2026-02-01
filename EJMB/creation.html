@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Creations | Emerson Bantillo</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        
+        .top-nav {
+            background: #2c3e50;
+            padding: 15px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .nav-links a:hover {
+            background: #3498db;
+        }
+
+        .nav-links .active {
+            background: #3498db;
+        }
+
+       
+        .container {
+            max-width: 1200px;
+            margin: 80px auto 30px;
+            padding: 0 20px;
+        }
+
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .page-header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #666;
+        }
+
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+
+        .project-info {
+            padding: 15px;
+        }
+
+        .project-title {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .project-desc {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .tag {
+            background: #e8f4fc;
+            color: #3498db;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8em;
+        }
+
+        
+        .about-section {
+            background: white;
+            padding: 30px;
+            border-radius: 5px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .about-section h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        
+        .page-footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        
+        .back-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        
+        .project-detail {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 5px;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .project-detail.active {
+            display: block;
+        }
+
+        .close-btn {
+            float: right;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: #2c3e50;
+                padding: 20px;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="top-nav">
+        <button class="menu-btn">☰</button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="guide.html">Guide</a></li>
+            <li><a href="creation.html" class="active">Creations</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    
+    <div class="container">
+        
+        <header class="page-header">
+            <h1>My Web Projects</h1>
+            <p>A collection of my HTML, CSS, and JavaScript projects created during my BSIT studies</p>
+            <p style="color: #3498db; margin-top: 10px; font-size: 0.9em;">
+                <strong>Emerson James Bantillo - BSIT 2A</strong>
+            </p>
+        </header>
+
+        
+        <div class="gallery">
+            
+            <div class="project-card" onclick="showDetail('project1')">
+                <img src="c:\Users\Emerson James\Downloads\4f888c44-d3ff-4342-bca9-c1f036f8b795.jpg" 
+                     alt="HTML Code" class="project-img">
+                <div class="project-info">
+                    <h3 class="project-title">Personal Website</h3>
+                    <p class="project-desc">My first complete website using HTML and CSS. Learned about layouts and styling.</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">Beginner</span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="project-card" onclick="showDetail('project2')">
+                <img src="c:\Users\Emerson James\Downloads\bb73c533-9045-496c-8f84-c90ce03020f2 (1).jpg" 
+                     alt="Code Editor" class="project-img">
+                <div class="project-info">
+                    <h3 class="project-title">Creating short story website</h3>
+                    <p class="project-desc">A short story that children or adults can read on the website.</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">Responsive</span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="project-card" onclick="showDetail('project3')">
+                <img src="c:\Users\Emerson James\Downloads\ac621a5c-e658-4800-974e-5151e5ad76a6.jpg" 
+                     alt="Programming" class="project-img">
+                <div class="project-info">
+                    <h3 class="project-title">BSIT Course Page</h3>
+                    <p class="project-desc">A webpage for our IT course with information and resources.</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">BSIT</span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="project-card" onclick="showDetail('project4')">
+                <img src="c:\Users\Emerson James\Downloads\a694a409-3919-4851-8090-82bb82545ba6.jpg" 
+                     alt="JavaScript Code" class="project-img">
+                <div class="project-info">
+                    <h3 class="project-title">JavaScript Calculator</h3>
+                    <p class="project-desc">Simple calculator with basic operations, my first JavaScript project.</p>
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="project-card" onclick="showDetail('project5')">
+                <img src="c:\Users\Emerson James\Downloads\e5ce45d8-7e23-4506-bd08-991bc507779a.jpg" 
+                     alt="Web Design" class="project-img">
+                <div class="project-info">
+                    <h3 class="project-title">Online shopping website</h3>
+                    <p class="project-desc">I tried to do online shopping using html.</p>
+                    <div class="project-tags">
+                        <span class="tag">CSS</span>
+                        <span class="tag">Responsive</span>
+                        <span class="tag">Design</span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="project-card" onclick="showDetail('project6')">
+                <img src="c:\Users\Emerson James\Downloads\b2327523-5016-4b51-b8b3-5c7de5308cbc.jpg" 
+                     alt="Web Development" class="project-img">
+                <div class="project-info">
+                    <h3 class="project-title">Temperature converter</h3>
+                    <p class="project-desc">I tried to make a temperature converter that anyone can use.</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div id="project1" class="project-detail">
+            <button class="close-btn" onclick="hideDetail('project1')">×</button>
+            <h2>Personal Website Project</h2>
+            <p><strong>Created:</strong> October 2026</p>
+            <p><strong>Technologies:</strong> HTML, CSS</p>
+            <p><strong>Description:</strong> This was my first personal website project. I learned how to structure HTML documents and style them with CSS. The website has a home page, about page, and contact page.</p>
+            <p><strong>What I learned:</strong> HTML tags, CSS selectors, box model, basic layout techniques.</p>
+        </div>
+
+        <div id="project2" class="project-detail">
+            <button class="close-btn" onclick="hideDetail('project2')">×</button>
+            <h2>Creating short story website </h2>
+            <p><strong>Created:</strong> November 2025</p>
+            <p><strong>Technologies:</strong> HTML, CSS (Flexbox)</p>
+            <p><strong>Description:</strong> a short story that children or adults can read on the website.</p>
+            <p><strong>What I learned:</strong> Responsive design, Flexbox, media queries.</p>
+        </div>
+
+        <div id="project3" class="project-detail">
+            <button class="close-btn" onclick="hideDetail('project3')">×</button>
+            <h2>BSIT Course Page</h2>
+            <p><strong>Created:</strong> December 2024</p>
+            <p><strong>Technologies:</strong> HTML, CSS</p>
+            <p><strong>Description:</strong> Informational page about our BSIT program. Includes course details, subjects, and resources for students.</p>
+            <p><strong>What I learned:</strong> Page structure, navigation menus, content organization.</p>
+        </div>
+
+        <div id="project4" class="project-detail">
+            <button class="close-btn" onclick="hideDetail('project4')">×</button>
+            <h2>JavaScript Calculator</h2>
+            <p><strong>Created:</strong> January 2025</p>
+            <p><strong>Technologies:</strong> HTML, CSS, JavaScript</p>
+            <p><strong>Description:</strong> My first JavaScript project. A calculator that can add, subtract, multiply, and divide numbers.</p>
+            <p><strong>What I learned:</strong> JavaScript basics, DOM manipulation, event handling.</p>
+        </div>
+
+        <div id="project5" class="project-detail">
+            <button class="close-btn" onclick="hideDetail('project5')">×</button>
+            <h2>Online shopping website</h2>
+            <p><strong>Created:</strong> February 2025</p>
+            <p><Strong>Technologies:</strong> HTML, CSS (Grid)</p>
+            <p><strong>Description:</strong> I tried to do online shopping using html.</p>
+            <p><strong>What I learned:</strong> CSS Grid, advanced responsive techniques, typography.</p>
+        </div>
+
+        <div id="project6" class="project-detail">
+            <button class="close-btn" onclick="hideDetail('project6')">×</button>
+            <h2>Temperature converter</h2>
+            <p><strong>Created:</strong> March 2025</p>
+            <p><strong>Technologies:</strong> HTML, CSS, JavaScript</p>
+            <p><strong>Description:</strong> I tried to make a temperature converter that anyone can use.</p>
+            <p><strong>What I learned:</strong> Form validation, JavaScript functions, user feedback.</p>
+        </div>
+
+        
+        <section class="about-section">
+            <h2>About These Projects</h2>
+            <p>Hi, I'm Emerson James Bantillo, a BSIT 2A student. These are some of the web projects I've created while learning HTML, CSS, and JavaScript.</p>
+            <p>Each project helped me learn something new about web development. I started with simple HTML pages and gradually added more complex features.</p>
+            <p>This page itself is one of my projects - created using what I've learned so far!</p>
+        </section>
+
+        
+        <section class="about-section" id="contact">
+            <h2>Contact</h2>
+            <p>Email: emerson.bantillo@example.com</p>
+            <p>Course: BSIT 2A</p>
+            <p>This is my final project for the semester.</p>
+        </section>
+    </div>
+
+    
+    <footer class="page-footer">
+        <p>© 2025 Emerson James Bantillo</p>
+        <p>BSIT 2A Web Development Project</p>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="guide.html">Guide</a>
+            <a href="creation.html">Creations</a>
+        </div>
+        <p style="margin-top: 15px; font-size: 0.9em; color: #bdc3c7;">
+            Simple HTML/CSS project - Made by hand
+        </p>
+    </footer>
+
+    
+    <a href="#" class="back-top">↑</a>
+
+    <script>
+        
+        
+        
+        const menuBtn = document.querySelector('.menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('show');
+        });
+        
+        
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('show');
+            });
+        });
+        
+        
+        function showDetail(projectId) {
+            
+            const allDetails = document.querySelectorAll('.project-detail');
+            allDetails.forEach(detail => {
+                detail.classList.remove('active');
+            });
+            
+            
+            const detail = document.getElementById(projectId);
+            if (detail) {
+                detail.classList.add('active');
+                detail.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        
+        function hideDetail(projectId) {
+            const detail = document.getElementById(projectId);
+            if (detail) {
+                detail.classList.remove('active');
+            }
+        }
+        
+        
+        const backTop = document.querySelector('.back-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backTop.style.display = 'flex';
+            } else {
+                backTop.style.display = 'none';
+            }
+        });
+        
+        
+        console.log("My Creations page - by Emerson");
+        console.log("Thanks for checking out my projects!");
+        
+        
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.project-card') && 
+                !event.target.closest('.project-detail') && 
+                !event.target.classList.contains('close-btn')) {
+                const allDetails = document.querySelectorAll('.project-detail');
+                allDetails.forEach(detail => {
+                    detail.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

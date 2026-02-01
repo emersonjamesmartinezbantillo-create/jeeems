@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Emerson Bantillo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        
+        .about-page {
+            padding-top: 80px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .about-header {
+            text-align: center;
+            padding: 4rem 0 2rem;
+        }
+        
+        .about-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .about-header p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .about-content {
+            background: white;
+            border-radius: 20px 20px 0 0;
+            padding: 3rem 0;
+            color: #333;
+        }
+        
+        .bio-section {
+            padding: 3rem 0;
+        }
+        
+        .bio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .bio-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .bio-text h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+        }
+        
+        .bio-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #555;
+        }
+        
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .info-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+        }
+        
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .skills-section {
+            padding: 3rem 0;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .skill-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .skill-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        
+        .skill-item h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .skill-bar {
+            height: 5px;
+            background: #ecf0f1;
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        
+        .skill-level {
+            height: 100%;
+            background: #3498db;
+            border-radius: 3px;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto;
+            padding-left: 2rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #3498db;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 3rem;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 22px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: #3498db;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px #3498db;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-content h4 {
+            color: #3498db;
+            margin-bottom: 0.5rem;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: #3498db;
+            color: white;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .about-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .timeline {
+                padding-left: 1rem;
+            }
+            
+            .timeline::before {
+                left: 15px;
+            }
+            
+            .timeline-item {
+                padding-left: 2rem;
+            }
+            
+            .timeline-dot {
+                left: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="logo-area">
+                <h1 class="logo-text">E<span class="logo-dot">.</span>Bantillo</h1>
+                <p class="logo-sub">BSIT Student</p>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html" class="nav-btn active"><i class="fas fa-user"></i> About</a></li>
+                <li><a href="guide.html" class="nav-btn"><i class="fas fa-book"></i> Guide</a></li>
+                <li><a href="creation.html" class="nav-btn"><i class="fas fa-palette"></i> Creations</a></li>
+                <li><a href="#contact" class="nav-btn contact-btn"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    
+    <main class="about-page">
+        <div class="container">
+            <header class="about-header">
+                <h1>About <span style="color: #f1c40f;">Me</span></h1>
+                <p>Get to know the person behind the code. My journey, skills, and aspirations in the world of technology.</p>
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </header>
+        </div>
+        
+        <div class="about-content">
+            <div class="container">
+                
+                <section class="bio-section">
+                    <div class="bio-grid">
+                        <div class="bio-image">
+                            <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Emerson Bantillo">
+                        </div>
+                        
+                        <div class="bio-text">
+                            <h2>Hello, I'm Emerson James Bantillo</h2>
+                            <p>I'm a passionate Information Technology student currently in my second year of college in OLSHCO. My journey in tech started when I was in 1st year College, tinkering with computers and trying to understand how things work behind the screen.</p>
+                            <p>What excites me most about web development is the ability to create something from nothing. Turning ideas into functional, beautiful websites is like magic to me. Every line of code is a step toward bringing a vision to life.</p>
+                            <p>When I'm not coding, you can find me exploring new technologies, reading tech blogs, or working on personal projects. I believe in continuous learning and always strive to improve my skills.</p>
+                            <p>This website represents my journey so far - a collection of what I've learned and created. It's my personal space to share, learn, and grow.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                            <p><strong>BS in Information Technology</strong><br>
+                            Currently in 2nd Year<br>
+                            in Our Lady Sacred Heart College of Guimba (OLSHCO)</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h3><i class="fas fa-code"></i> Focus Areas</h3>
+                            <p>Frontend Web Development<br>
+                            UI/UX Design<br>
+                            Responsive Design<br>
+                            Web Accessibility</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h3><i class="fas fa-rocket"></i> Goals</h3>
+                            <p>Master JavaScript & Frameworks<br>
+                            Build Real-World Projects<br>
+                            Contribute to Open Source<br>
+                            Land a Web Dev Internship</p>
+                        </div>
+                    </div>
+                </section>
+                
+                
+                <section class="skills-section">
+                    <h2 class="section-heading" style="color: #2c3e50;">My Skills & Technologies</h2>
+                    
+                    <div class="skills-container">
+                        <div class="skill-item">
+                            <div class="skill-icon">
+                                <i class="fab fa-html5"></i>
+                            </div>
+                            <h4>HTML5</h4>
+                            <p>Semantic markup, accessibility</p>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-icon">
+                                <i class="fab fa-css3-alt"></i>
+                            </div>
+                            <h4>CSS3</h4>
+                            <p>Flexbox, Grid, animations</p>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-icon">
+                                <i class="fab fa-js"></i>
+                            </div>
+                            <h4>JavaScript</h4>
+                            <p>DOM manipulation, basics</p>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 70%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h4>Responsive Design</h4>
+                            <p>Mobile-first approach</p>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                
+                <section style="padding: 3rem 0;">
+                    <h2 class="section-heading" style="color: #2c3e50;">My Journey So Far</h2>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>2023 - Present</h4>
+                                <h3>BSIT Student</h3>
+                                <p>Currently studying web development, programming fundamentals, and networking concepts. Learning HTML, CSS, JavaScript, and more.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>2024</h4>
+                                <h3>First Web Projects</h3>
+                                <p>Started building personal projects and learning advanced CSS techniques. Created my first responsive website.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>2023</h4>
+                                <h3>Web Development Beginnings</h3>
+                                <p>Created my first HTML/CSS website as a class project. This sparked my interest in web development.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>2022</h4>
+                                <h3>College Journey Starts</h3>
+                                <p>Entered university to pursue Information Technology. Started learning programming basics.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                
+                <section id="contact" style="text-align: center; padding: 3rem 0;">
+                    <h2 class="section-heading" style="color: #2c3e50;">Get In Touch</h2>
+                    <p style="max-width: 600px; margin: 0 auto 2rem;">Have questions or want to collaborate? Feel free to reach out!</p>
+                    
+                    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                        <div style="text-align: center;">
+                            <i class="fas fa-envelope" style="font-size: 2rem; color: #3498db; margin-bottom: 1rem;"></i>
+                            <h4>Email</h4>
+                            <p>emersonjamesbantillo@example.com</p>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <i class="fas fa-phone" style="font-size: 2rem; color: #3498db; margin-bottom: 1rem;"></i>
+                            <h4>Phone</h4>
+                            <p>+63 995 345 6789</p>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <i class="fas fa-map-marker-alt" style="font-size: 2rem; color: #3498db; margin-bottom: 1rem;"></i>
+                            <h4>Location</h4>
+                            <p>Philippines</p>
+                        </div>
+                    </div>
+                    
+                    <a href="index.html" class="back-btn" style="margin-top: 2rem;">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </section>
+            </div>
+        </div>
+    </main>
+
+   
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Emerson Bantillo</h3>
+                    <p>Building the web, one line at a time</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="guide.html">Guide</a></li>
+                        <li><a href="creation.html">Creations</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-credits">
+                    <h4>Credits</h4>
+                    <p>Made with ❤️ by Emerson</p>
+                    <p>For BSIT-2A Final Project</p>
+                    <p>All images from Unsplash</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Emerson James M. Bantillo. This is my project, please don't copy! 😊</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('show');
+            this.querySelector('i').classList.toggle('fa-bars');
+            this.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        
+        document.querySelectorAll('.nav-btn').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('show');
+                mobileToggle.querySelector('i').classList.add('fa-bars');
+                mobileToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+    </script>
+</body>
+</html>

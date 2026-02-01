@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Guide | Emerson Bantillo</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        
+        .main-nav {
+            background: #2c3e50;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-dot {
+            color: #3498db;
+        }
+
+        .logo-sub {
+            color: #ecf0f1;
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-btn {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-btn.active {
+            background: #3498db;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        
+        .guide-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 20px 60px;
+            text-align: center;
+        }
+
+        .guide-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .student-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 25px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        
+        .guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 992px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .video-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            background: #1a1a1a;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-title {
+            color: #2c3e50;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-desc {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #7f8c8d;
+            font-size: 0.85rem;
+        }
+
+        .duration {
+            background: #e8f4fc;
+            color: #3498db;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-weight: 500;
+        }
+
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .html-tag {
+            color: #63b3ed;
+        }
+
+        .html-attr {
+            color: #fbb6ce;
+        }
+
+        .html-value {
+            color: #fed7d7;
+        }
+
+        .html-text {
+            color: #e2e8f0;
+        }
+
+        
+        .ref-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .ref-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .ref-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        
+        .tips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .tip-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            opacity: 0.2;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+        }
+
+        
+        .guide-footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 20px 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        
+        .back-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #3498db;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-top:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: #2c3e50;
+                width: 100%;
+                padding: 2rem;
+                transition: left 0.3s ease;
+                z-index: 999;
+            }
+
+            .nav-links.show {
+                left: 0;
+            }
+
+            .guide-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .guide-header p {
+                font-size: 1.1rem;
+            }
+        }
+
+        
+        .highlight {
+            background: #e8f4fc;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #3498db;
+            font-weight: 500;
+        }
+
+        .note-box {
+            background: #fff9e6;
+            border-left: 4px solid #f1c40f;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+
+        .note-box p {
+            margin: 0;
+            color: #7d6608;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="logo-area">
+                <div>
+                    <div class="logo-text">E<span class="logo-dot">.</span>Bantillo</div>
+                    <div class="logo-sub">BSIT Student</div>
+                </div>
+            </div>
+            
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html" class="nav-btn"><i class="fas fa-user"></i> About</a></li>
+                <li><a href="guide.html" class="nav-btn active"><i class="fas fa-book"></i> Guide</a></li>
+                <li><a href="creation.html" class="nav-btn"><i class="fas fa-palette"></i> Creations</a></li>
+                <li><a href="#contact" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    
+    <header class="guide-header">
+        <h1>Web Development Guide</h1>
+        <p>Learn HTML, CSS, and JavaScript with step-by-step tutorials and resources. Perfect for beginners starting their coding journey.</p>
+        <div class="student-badge">
+            <i class="fas fa-graduation-cap"></i> Created by Emerson James Bantillo • BSIT-2A
+        </div>
+    </header>
+
+    
+    <main class="guide-container">
+        
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-rocket"></i> Getting Started</h2>
+            <p>Welcome to my web development guide! I'm <span class="highlight">Emerson James Bantillo</span>, a BSIT student passionate about web technologies. This guide is based on my learning journey and the resources that helped me the most.</p>
+            
+            <div class="note-box">
+                <p><i class="fas fa-lightbulb"></i> <strong>Tip from my experience:</strong> Don't try to learn everything at once. Start with HTML, then CSS, then JavaScript. Practice regularly!</p>
+            </div>
+            
+            <p>Whether you're a complete beginner or looking to refresh your skills, this guide will help you build a strong foundation in web development.</p>
+        </section>
+
+        
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-video"></i> Video Tutorials</h2>
+            <p>Watch these tutorials in order for the best learning experience. I personally used these when starting out!</p>
+            
+            <div class="video-grid">
+                
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/qz0aGYrrlhU" 
+                            title="HTML Crash Course"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML Crash Course for Beginners</h3>
+                        <p class="video-desc">Learn HTML fundamentals in this comprehensive tutorial. Perfect starting point for absolute beginners.</p>
+                        <div class="video-meta">
+                            <span class="duration">1:00:00</span>
+                            <span><i class="fas fa-star"></i> Beginner</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/vY2xUc4TVmY" 
+                            title="Complete HTML Tutorial"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Complete HTML & CSS Tutorial</h3>
+                        <p class="video-desc">In-depth guide covering HTML5 and CSS3. Learn modern web development techniques.</p>
+                        <div class="video-meta">
+                            <span class="duration">2:15:00</span>
+                            <span><i class="fas fa-star"></i><i class="fas fa-star"></i> Intermediate</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/3JluqTojuME" 
+                            title="JavaScript for Beginners"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">JavaScript Fundamentals</h3>
+                        <p class="video-desc">Start learning JavaScript with this beginner-friendly tutorial. Essential for interactive websites.</p>
+                        <div class="video-meta">
+                            <span class="duration">1:45:00</span>
+                            <span><i class="fas fa-star"></i> Beginner</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="note-box" style="margin-top: 2rem;">
+                <p><i class="fas fa-play-circle"></i> <strong>My advice:</strong> Code along with the videos! Pause and practice each concept before moving on.</p>
+            </div>
+        </section>
+
+        
+        <section class="section">
+            <h2 class="section-title"><i class="fab fa-html5"></i> HTML Basics</h2>
+            <p>HTML (HyperText Markup Language) is the foundation of every website. Here's the basic structure:</p>
+            
+            <div class="code-block">
+<span class="html-tag">&lt;!DOCTYPE html&gt;</span><br>
+<span class="html-tag">&lt;html</span> <span class="html-attr">lang</span>=<span class="html-value">"en"</span><span class="html-tag">&gt;</span><br>
+<span class="html-tag">&lt;head&gt;</span><br>
+&nbsp;&nbsp;<span class="html-tag">&lt;meta</span> <span class="html-attr">charset</span>=<span class="html-value">"UTF-8"</span><span class="html-tag">&gt;</span><br>
+&nbsp;&nbsp;<span class="html-tag">&lt;meta</span> <span class="html-attr">name</span>=<span class="html-value">"viewport"</span> <span class="html-attr">content</span>=<span class="html-value">"width=device-width, initial-scale=1.0"</span><span class="html-tag">&gt;</span><br>
+&nbsp;&nbsp;<span class="html-tag">&lt;title&gt;</span><span class="html-text">My First Website</span><span class="html-tag">&lt;/title&gt;</span><br>
+&nbsp;&nbsp;<span class="html-tag">&lt;link</span> <span class="html-attr">rel</span>=<span class="html-value">"stylesheet"</span> <span class="html-attr">href</span>=<span class="html-value">"style.css"</span><span class="html-tag">&gt;</span><br>
+<span class="html-tag">&lt;/head&gt;</span><br>
+<span class="html-tag">&lt;body&gt;</span><br>
+&nbsp;&nbsp;<span class="html-tag">&lt;h1&gt;</span><span class="html-text">Hello, World!</span><span class="html-tag">&lt;/h1&gt;</span><br>
+&nbsp;&nbsp;<span class="html-tag">&lt;p&gt;</span><span class="html-text">This is my first web page.</span><span class="html-tag">&lt;/p&gt;</span><br>
+<span class="html-tag">&lt;/body&gt;</span><br>
+<span class="html-tag">&lt;/html&gt;</span>
+            </div>
+            
+            <p>Copy this template to start any HTML project. Click on the code to copy it!</p>
+        </section>
+
+        
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-bookmark"></i> Quick Reference</h2>
+            <p>Essential elements and concepts you'll use frequently:</p>
+            
+            <div class="ref-cards">
+                <div class="ref-card">
+                    <h3><i class="fab fa-html5"></i> HTML Tags</h3>
+                    <p><code>&lt;h1&gt;</code> - Heading</p>
+                    <p><code>&lt;p&gt;</code> - Paragraph</p>
+                    <p><code>&lt;a&gt;</code> - Link</p>
+                    <p><code>&lt;img&gt;</code> - Image</p>
+                    <p><code>&lt;div&gt;</code> - Container</p>
+                </div>
+                
+                <div class="ref-card">
+                    <h3><i class="fab fa-css3-alt"></i> CSS Properties</h3>
+                    <p><code>color</code> - Text color</p>
+                    <p><code>background</code> - Background</p>
+                    <p><code>margin</code> - Outside spacing</p>
+                    <p><code>padding</code> - Inside spacing</p>
+                    <p><code>font-size</code> - Text size</p>
+                </div>
+                
+                <div class="ref-card">
+                    <h3><i class="fab fa-js"></i> JavaScript</h3>
+                    <p><code>document</code> - Access HTML</p>
+                    <p><code>getElementById()</code> - Select element</p>
+                    <p><code>addEventListener()</code> - Handle events</p>
+                    <p><code>console.log()</code> - Debug output</p>
+                    <p><code>function()</code> - Create functions</p>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Learning Tips</h2>
+            <p>From my experience as a BSIT student, here are tips that helped me learn web development:</p>
+            
+            <div class="tips-container">
+                <div class="tip-box">
+                    <div class="tip-number">01</div>
+                    <h3>Practice Daily</h3>
+                    <p>Code every day, even if it's just for 30 minutes. Consistency builds skill faster than marathon sessions.</p>
+                </div>
+                
+                <div class="tip-box">
+                    <div class="tip-number">02</div>
+                    <h3>Build Projects</h3>
+                    <p>Start with simple pages and gradually increase complexity. Check my <a href="creation.html" style="color: white; text-decoration: underline;">Creations</a> page for ideas!</p>
+                </div>
+                
+                <div class="tip-box">
+                    <div class="tip-number">03</div>
+                    <h3>Don't Give Up</h3>
+                    <p>Everyone struggles at first. When I started, I couldn't center a div. Keep practicing and you'll improve!</p>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-laptop-code"></i> Try It Yourself</h2>
+            <p>Ready to practice? Here's a simple exercise:</p>
+            
+            <div style="background: #e8f4fc; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                <h3 style="color: #2c3e50; margin-bottom: 1rem;">Exercise: Create a Simple Bio Page</h3>
+                <ol style="margin-left: 1.5rem; color: #333;">
+                    <li>Create a new HTML file</li>
+                    <li>Add your name in an <code>&lt;h1&gt;</code> tag</li>
+                    <li>Write a paragraph about yourself</li>
+                    <li>Add a profile image</li>
+                    <li>Create a list of your hobbies</li>
+                    <li>Add a link to your favorite website</li>
+                    <li>Style it with CSS!</li>
+                </ol>
+                <p style="margin-top: 1rem; color: #666;"><i class="fas fa-star"></i> <strong>Challenge:</strong> Make it responsive for mobile devices!</p>
+            </div>
+            
+            <p>Need inspiration? Check out <a href="creation.html" style="color: #3498db; text-decoration: none;">my projects</a> to see what I've built!</p>
+        </section>
+    </main>
+
+    
+    <footer class="guide-footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Web Dev Guide</h3>
+                <p style="color: #bdc3c7;">A learning resource created by Emerson James Bantillo for BSIT-2A students and web development beginners.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-user"></i> About Me</a></li>
+                    <li><a href="guide.html"><i class="fas fa-book"></i> Web Dev Guide</a></li>
+                    <li><a href="creation.html"><i class="fas fa-palette"></i> My Creations</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
+                    <li><a href="mailto:emerson.bantillo@example.com"><i class="fas fa-envelope"></i> Email</a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2025 Emerson James M. Bantillo • BSIT-2A Final Project</p>
+            <p style="margin-top: 10px; font-size: 0.85rem;">Made with <i class="fas fa-heart" style="color: #e74c3c;"></i> and <i class="fas fa-code" style="color: #3498db;"></i></p>
+        </div>
+    </footer>
+
+    
+    <a href="#" class="back-top" id="backTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+            mobileToggle.innerHTML = navLinks.classList.contains('show') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        
+        document.querySelectorAll('.nav-btn').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('show');
+                mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        
+        const backTop = document.getElementById('backTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backTop.classList.add('show');
+            } else {
+                backTop.classList.remove('show');
+            }
+        });
+        
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        
+        const codeBlock = document.querySelector('.code-block');
+        codeBlock.addEventListener('click', () => {
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const original = codeBlock.innerHTML;
+                codeBlock.innerHTML = '<span style="color: #2ecc71">✓ Copied! Paste in your editor to start.</span>';
+                setTimeout(() => {
+                    codeBlock.innerHTML = original;
+                }, 2000);
+            });
+        });
+        
+        
+        console.log("🌐 Welcome to Emerson's Web Development Guide!");
+        console.log("👨‍💻 Created by: Emerson James M. Bantillo");
+        console.log("🎓 Course: BSIT-2A");
+        console.log("💡 Tip: Practice the code examples as you learn!");
+    </script>
+</body>
+</html>
